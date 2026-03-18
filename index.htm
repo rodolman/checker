@@ -2,172 +2,46 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Northern Health Sentence Case Checker</title>
-
-<style>
-
-body{
-font-family: "Segoe UI", Arial, sans-serif;
-max-width:900px;
-margin:auto;
-padding:40px;
-background:#fff;
-color:#333;
-font-size:16px;
-line-height:1.6;
-}
-    
-a {
-  color: #0066cc; /* NH blue */
-  text-decoration: underline;
-  transition: all 0.2s ease;
-}
-
-a:hover {
-  color: #004499; /* Darker blue on hover */
-  text-decoration: none;
-}
-
-a:focus {
-  outline: 2px solid #0066cc;
-  outline-offset: 2px;
-}
-
-
-h1{
-color:#005b5c;
-font-size:30px;
-font-weight:normal;
-margin-bottom:20px;
-}
-
-.instructions{
-background:#eef7f7;
-border-left:6px solid #007c82;
-padding:16px 18px;
-margin-bottom:28px;
-font-size:16px;
-}
-    
-.large{
-font-size: 18px        
-}
-
-textarea{
-width:100%;
-font-size:18px;
-padding:16px;
-border-radius:6px;
-border:1px solid #cfd8dc;
-resize:vertical;
-margin-top:6px;
-}
-
-textarea:focus{
-outline:none;
-border-color:#007c82;
-box-shadow:0 0 0 2px rgba(0,124,130,0.15);
-}
-
-.button-group{
-margin-top:22px;
-margin-bottom:12px;
-}
-
-button{
-background:#007c82;
-color:white;
-padding:13px 24px;
-font-size:16px;
-border:none;
-border-radius:6px;
-cursor:pointer;
-margin-right:10px;
-}
-
-button:hover{
-background:#005f63;
-}
-
-.reset{
-background:#6c757d;
-}
-
-.reset:hover{
-background:#545b62;
-}
-
-#output{
-margin-top:30px;
-padding:20px;
-background:#f7fbfb;
-border-left:5px solid #007c82;
-border-radius:6px;
-font-size:20px;
-}
-
-#explanation{
-margin-top:18px;
-padding:18px;
-background:#f1f8f8;
-border-left:5px solid #4aa3a5;
-border-radius:6px;
-font-size:16px;
-}
-    
-.changed{
-background:#fff3cd;
-padding:2px 4px;
-border-radius:3px;
-}
-
-.footer{
-margin-top:40px;
-padding-top:20px;
-border-top:1px solid #dfe6e9;
-font-size:16px;
-}
-
-.footer a{
-color:#007c82;
-//font-weight:600;
-text-decoration:underline;
-}
-
-.footer a:hover{
-text-decoration:none;
-}
-
-/* External link arrow */
-
-//.footer a::after{
-//content:"  ↗";
-//font-weight:bold;
-//font-size:14px;
-//}
-
-</style>
+<title>NH sentence case checker</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@bcgov/bc-sans@2.1.0/css/BC_Sans.css">
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>NH Sentence Case Checker</h1>
+<h1>NH sentence case checker</h1>
 
 <div class="instructions">
-    <p class="large">Highlight the <strong>official program name</strong> in the text if present.</p>
+    <p class="large">Highlight any <strong>official program names</strong> or <strong>proper nouns</strong> in the text.</p>
     <p>Example: <span class="changed">Rural, Remote and Indigenous Food Action</span> Grants will be converted to Rural, Remote and Indigenous Food Action grants</p>
 </div>
 
 <textarea id="input" rows="4" placeholder="Paste or type text here..."></textarea>
 
 <div class="button-group">
-<button onclick="checkCase()">Validate & Convert</button>
+<button onclick="checkCase()">Check</button>
 <button class="reset" onclick="resetTool()">Reset</button>
 </div>
 
 <div id="output"></div>
 
 <div id="explanation" style="display:none;"></div>
+
+<div id="resources" class="resources">
+  <p><strong>Relevant BC Style Guide sections:</strong></p>
+  <ul>
+    <li>
+      <a href="https://www2.gov.bc.ca/gov/content/governments/services-for-government/service-experience-digital-delivery/web-content-development-guides/web-style-guide/writing-guide/capitalization">
+        Capitalization guidelines
+      </a>
+    </li>
+    <li>
+      <a href="https://www2.gov.bc.ca/gov/content/governments/services-for-government/service-experience-digital-delivery/web-content-development-guides/web-style-guide/writing-guide/headings">
+        Headings and titles
+      </a>
+    </li>
+  </ul>
+</div>
 
 <div class="footer">
 See the 
@@ -176,136 +50,7 @@ BC Government Web Style Guide
 </a>
 </div>
 
-<script>
-
-const smallWords = [
-"and","or","the","of","in","for","to","a","an","on","at","by","with"
-];
-
-function titleCase(text){
-
-let words = text.toLowerCase().split(" ");
-
-for(let i=0;i<words.length;i++){
-
-if(i===0 || !smallWords.includes(words[i])){
-words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
-}
-
-}
-
-return words.join(" ");
-
-}
-
-function sentenceCase(text){
-
-text = text.toLowerCase();
-
-if(text.length===0) return "";
-
-return text.charAt(0).toUpperCase() + text.slice(1);
-
-}
-
-function checkCase(){
-
-document.getElementById("explanation").style.display = "block";
-    
-let textarea = document.getElementById("input");
-
-let text = textarea.value;
-
-let start = textarea.selectionStart;
-let end = textarea.selectionEnd;
-
-let before = text.substring(0,start);
-let selected = text.substring(start,end);
-let after = text.substring(end);
-
-let explanation = [];
-
-before = sentenceCase(before);
-
-explanation.push(
-"The BC Government Writing Style Guide recommends using <strong>sentence case</strong> for most text. Only the first word and proper nouns should be capitalized."
-);
-
-if(selected.length>0){
-
-selected = titleCase(selected);
-
-explanation.push(
-"The highlighted text was treated as an <strong>official program name</strong>, so it was converted to title case. The BC style guide allows capitalization for the formal names of programs and services."
-);
-
-}else{
-
-explanation.push(
-"No program name was highlighted, so the tool converted the text to sentence case."
-);
-
-}
-
-after = after.toLowerCase();
-
-let result = before + selected + after;
-
-document.getElementById("output").innerHTML = highlightChanges(text,result);
-
-let guideLinks = `
-<p><strong>Relevant BC Style Guide sections:</strong></p>
-<ul>
-<li>
-<a href="https://www2.gov.bc.ca/gov/content/governments/services-for-government/service-experience-digital-delivery/web-content-development-guides/web-style-guide/writing-guide/capitalization">
-Capitalization guidelines
-</a>
-</li>
-
-<li>
-<a href="https://www2.gov.bc.ca/gov/content/governments/services-for-government/service-experience-digital-delivery/web-content-development-guides/web-style-guide/writing-guide/headings">
-Headings and titles
-</a>
-</li>
-</ul>
-`;
-
-document.getElementById("explanation").innerHTML =
-explanation.join("<br><br>") + guideLinks;
-
-}
-
-function resetTool(){
-
-document.getElementById("explanation").style.display = "none";
-
-document.getElementById("input").value="";
-document.getElementById("output").textContent="";
-document.getElementById("explanation").innerHTML="";
-
-}
-    
-function highlightChanges(original, corrected){
-
-let o = original.split(" ");
-let c = corrected.split(" ");
-
-let output = [];
-
-for(let i=0;i<c.length;i++){
-
-if(o[i] !== c[i]){
-output.push("<span class='changed'>"+c[i]+"</span>");
-}else{
-output.push(c[i]);
-}
-
-}
-
-return output.join(" ");
-}
-
-</script>
+<script src="scripts.js" defer></script>
 
 </body>
 </html>

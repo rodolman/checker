@@ -1,0 +1,139 @@
+body{
+  font-family:  'BC Sans', 'Noto Sans', sans-serif;
+  max-width:900px;
+  margin:auto;
+  padding:40px;
+  background:#fff;
+  color:#333;
+  font-size:16px;
+  line-height:1.6;
+}
+    
+a {
+  color: #0066cc; /* NH blue */
+  text-decoration: underline;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  color: #004499; /* Darker blue on hover */
+  text-decoration: none;
+}
+
+a:focus {
+  outline: 2px solid #0066cc;
+  outline-offset: 2px;
+}
+
+
+h1{
+  color:#005b5c;
+  font-size:30px;
+  font-weight:normal;
+  margin-bottom:20px;
+}
+
+.instructions{
+  background:#eef7f7;
+  border-left:6px solid #007c82;
+  padding:16px 18px;
+  margin-bottom:28px;
+  font-size:16px;
+}
+    
+.large{
+  font-size: 18px        
+}
+
+textarea{
+  width:100%;
+  font-size:18px;
+  padding:16px;
+  border-radius:6px;
+  border:1px solid #cfd8dc;
+  resize:vertical;
+  margin-top:6px;
+}
+
+textarea:focus{
+  outline:none;
+  border-color:#007c82;
+  box-shadow:0 0 0 2px rgba(0,124,130,0.15);
+}
+
+.button-group{
+  margin-top:22px;
+  margin-bottom:12px;
+}
+
+button{
+  background:#007c82;
+  color:white;
+  padding:13px 24px;
+  font-size:16px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  margin-right:10px;
+}
+
+button:hover{
+  background:#005f63;
+}
+
+.reset{
+  background:#6c757d;
+}
+
+.reset:hover{
+  background:#545b62;
+}
+
+#output{
+  display:none;
+  margin-top:30px;
+  padding:20px;
+  background:#f7fbfb;
+  border-left:5px solid #007c82;
+  border-radius:6px;
+  font-size:20px;
+}
+
+#explanation{
+  margin-top:18px;
+  padding:18px;
+  background:#f1f8f8;
+  border-left:5px solid #4aa3a5;
+  border-radius:6px;
+  font-size:16px;
+}
+    
+.changed{
+  background:#fff3cd;
+  padding:2px 4px;
+  border-radius:3px;
+}
+
+.resources {
+  margin-top: 40px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-left: 4px solid #004b87; /* BC blue */
+  font-size: 18px;
+}
+
+.footer{
+  margin-top:40px;
+  padding-top:20px;
+  border-top:1px solid #dfe6e9;
+  font-size:16px;
+}
+
+.footer a{
+  color:#007c82;
+  text-decoration:underline;
+}
+
+.footer a:hover{
+  text-decoration:none;
+}
